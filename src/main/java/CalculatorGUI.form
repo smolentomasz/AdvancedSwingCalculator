@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="AdvancedCalculatorLayout">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="CalculatorGUI">
   <grid id="27dc6" binding="mainPanel" custom-create="true" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
@@ -7,9 +7,10 @@
     </constraints>
     <properties>
       <autoscrolls value="false"/>
-      <background color="-3072739"/>
+      <background color="-11336697"/>
       <enabled value="true"/>
-      <foreground color="-6493"/>
+      <font name="Minion Pro" size="20"/>
+      <foreground color="-12218"/>
       <inheritsPopupMenu value="false"/>
       <requestFocusEnabled value="true"/>
       <verifyInputWhenFocusTarget value="true"/>
@@ -24,7 +25,8 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-6493"/>
+          <background color="-12218"/>
+          <foreground color="-11336697"/>
         </properties>
       </component>
       <component id="f4a4" class="javax.swing.JButton" binding="evaluateButton">
@@ -32,6 +34,8 @@
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-5666769"/>
+          <foreground color="-11336697"/>
           <text value="Evaluate!"/>
         </properties>
       </component>
@@ -47,11 +51,14 @@
           <component id="38539" class="javax.swing.JTextArea" binding="historyTextArea">
             <constraints/>
             <properties>
-              <background color="-6493"/>
+              <background color="-12218"/>
               <editable value="false"/>
               <enabled value="true"/>
               <font name="Calibri" size="18" style="1"/>
+              <foreground color="-11336697"/>
               <lineWrap value="true"/>
+              <selectedTextColor color="-12218"/>
+              <selectionColor color="-12218"/>
               <text value=""/>
             </properties>
           </component>
@@ -73,6 +80,8 @@
             </constraints>
             <properties>
               <autoscrolls value="true"/>
+              <background color="-12218"/>
+              <foreground color="-11336697"/>
             </properties>
           </component>
         </children>

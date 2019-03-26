@@ -1,10 +1,6 @@
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -16,17 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class AdvancedCalculatorLayout{
+public class CalculatorGUI {
     private JTextField enterOperationsField;
 
     JTextField getEnterOperationsField() {
         return enterOperationsField;
     }
-    private JPanel mainPanel;
 
-    public JPanel getMainPanel() {
-        return mainPanel;
-    }
+    private JPanel mainPanel;
     private JButton evaluateButton;
 
     JButton getEvaluateButton() {
@@ -46,14 +39,10 @@ public class AdvancedCalculatorLayout{
         return historyTextArea;
     }
 
-    public JPanel getListPanel() {
-        return listPanel;
-    }
-
     private JPanel listPanel;
     private JFrame calculatorFrame;
 
-    AdvancedCalculatorLayout() {
+    CalculatorGUI() {
 
     }
 
@@ -69,10 +58,10 @@ public class AdvancedCalculatorLayout{
         mainPanel = new JPanel();
 
         calculatorFrame = new JFrame();
-        calculatorFrame.setTitle("Zaawansowany kalkulator");
+        calculatorFrame.setTitle("Advanced calculator");
         calculatorFrame.setContentPane(mainPanel);
         calculatorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        calculatorFrame.setSize(screenWidth /2, screenHeight /2);
+        calculatorFrame.setSize(screenWidth / 2, screenHeight / 2);
 
         calculatorMenuBar = new JMenuBar();
         calculatorMenu = new JMenu("Options");
@@ -80,30 +69,21 @@ public class AdvancedCalculatorLayout{
         calculatorMenuBar.add(calculatorMenu);
 
         calculatorMenuItem = new JMenuItem("Reset", KeyEvent.VK_R);
-        calculatorMenuItem.addActionListener(new MyActionListener());
+        calculatorMenuItem.addActionListener(e -> {
+            enterOperationsField.setText("");
+            historyTextArea.setText("");
+            MainCalculator.setMessageTextArea("");
+        });
         calculatorMenu.add(calculatorMenuItem);
 
         calculatorMenuItem = new JMenuItem("Exit", KeyEvent.VK_E);
-        calculatorMenuItem.addActionListener(new MyActionListener());
+        calculatorMenuItem.addActionListener(e -> {
+            calculatorFrame.dispose();
+        });
         calculatorMenu.add(calculatorMenuItem);
         calculatorFrame.setJMenuBar(calculatorMenuBar);
 
 
-
         calculatorFrame.setVisible(true);
-    }
-
-    public class MyActionListener implements ActionListener{
-
-        public void actionPerformed(ActionEvent e) {
-            if(e.getActionCommand().equals("Reset")){
-                enterOperationsField.setText("");
-                historyTextArea.setText("");
-                AdvancedSwingCalculator.setMessageTextArea("");
-            }
-            else{
-                calculatorFrame.dispose();
-            }
-        }
     }
 }

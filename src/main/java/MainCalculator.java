@@ -1,7 +1,5 @@
 import org.mariuszgromada.math.mxparser.Expression;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.MessageFormat;
@@ -13,33 +11,31 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 
-public class AdvancedSwingCalculator{
-    private static AdvancedCalculatorLayout newCalculator;
+public class MainCalculator {
+    private static CalculatorGUI newCalculator;
     private static String lastEvaluation = "";
+    private static String lastResult = "";
 
+    public static double getDoneCalculation() {
+        return doneCalculation;
+    }
+
+    private static double doneCalculation;
     public static void setMessageTextArea(String messageTextArea) {
-        AdvancedSwingCalculator.messageTextArea = messageTextArea;
+        MainCalculator.messageTextArea = messageTextArea;
     }
 
     private static String messageTextArea;
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                newCalculator = new AdvancedCalculatorLayout();
-                new AddFunctionList(newCalculator.getOptionList(), newCalculator.getEnterOperationsField(), newCalculator.getHistoryTextArea());
-                newCalculator.getEvaluateButton().addActionListener(new MyActionListener());
-                newCalculator.getEnterOperationsField().addKeyListener(myKeyListener);
-            }
+        SwingUtilities.invokeLater(() -> {
+            newCalculator = new CalculatorGUI();
+            new AddFunctionList(newCalculator.getOptionList(), newCalculator.getEnterOperationsField(), newCalculator.getHistoryTextArea());
+            newCalculator.getEvaluateButton().addActionListener(e -> {
+                makeCalculations();
+            });
+            newCalculator.getEnterOperationsField().addKeyListener(myKeyListener);
         });
 
-    }
-
-    public static class MyActionListener implements ActionListener{
-        public void actionPerformed(ActionEvent e) {
-            if(e.getActionCommand().equals("Evaluate!")){
-               makeCalculations();
-            }
-        }
     }
     static KeyListener myKeyListener = new KeyListener() {
         @Override
@@ -62,11 +58,11 @@ public class AdvancedSwingCalculator{
         Expression e1 = new Expression(newCalculator.getEnterOperationsField().getText());
         messageTextArea = newCalculator.getHistoryTextArea().getText();
         if (e1.checkSyntax()) {
-            String pom = newCalculator.getEnterOperationsField().getText();
-            double planet = e1.calculate();
+            String getTextFromField = newCalculator.getEnterOperationsField().getText();
+            doneCalculation = e1.calculate();
             String result = MessageFormat.format(
-                    "{2}   =   {0,number,integer}. \t Calculated at {1,time} on {1,date}.\n",
-                    planet, new Date(), pom);
+                    "{2}   =   {0,number}. \t Calculated at {1,time} on {1,date}.\n",
+                    doneCalculation, new Date(), getTextFromField);
             messageTextArea += result;
             newCalculator.getHistoryTextArea().setText(messageTextArea);
             lastEvaluation = newCalculator.getEnterOperationsField().getText();
